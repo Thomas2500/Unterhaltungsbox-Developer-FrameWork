@@ -11,6 +11,11 @@
  *
  */
 
+// Hack protection
+if (!defined("FW_PATH"))
+	exit(file_get_contents("../pages/hack.txt"));
+
+
 namespace UDFrameWork\system;
 use \PDO;
 use \PDOException;

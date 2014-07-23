@@ -13,6 +13,11 @@
  *
  */
 
+// Hack protection
+if (!defined("FW_PATH"))
+    exit(file_get_contents("../pages/hack.txt"));
+
+
 namespace UDFrameWork\lib\system;
 
 class Shutdown
