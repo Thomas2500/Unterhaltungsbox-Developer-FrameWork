@@ -19,7 +19,8 @@ if (!defined('FW_PATH'))
 
 // Which config files should be automatically loaded?
 $load_config = array(
-    'database'               // Database connections
+    'database',               // Database connections
+    'memorycached'
 );
 
 
@@ -29,3 +30,5 @@ foreach ($load_config as $line)
 {
     require_once(FW_PATH . 'config/' . $line . '.php');
 }
+
+unset($load_config);
