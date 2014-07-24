@@ -63,3 +63,5 @@ $SQE["database"] = "";
 
 // Initialisize database connection
 $SQL = new \UDFrameWork\system\SQL($SQC["host"], $SQC["username"], $SQC["password"], $SQE);
+
+unset($SQC, $SQE);
