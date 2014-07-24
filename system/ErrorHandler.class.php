@@ -15,6 +15,10 @@
 
 namespace UDFrameWork\system;
 
+// Hack protection
+if (!defined("FW_PATH"))
+    exit(file_get_contents("../pages/hack.txt"));
+
 class ErrorHandler
 {
 
