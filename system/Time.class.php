@@ -19,7 +19,12 @@ if (!defined("FW_PATH"))
 
 class Time{
 
-    static public function isTimezoneValid($timezone)
+    /**
+     *	Checks if a given timezone like Europe/Vienna is valid
+     *	@param 	string 	$timezone
+     *	@return bool
+     */
+    public static function isTimezoneValid($timezone)
     {
         try
         {
@@ -33,14 +38,17 @@ class Time{
     }
 
     /**
-     * out ( (string) $format, (int) $timestamp, (string) $timezone )
-     *
-     *
+     *	Converts an unix timestamp in an user friendly time depending on the given timezone
+     *	@param 	string 	$format
+     *	@param 	int 	$timestamp
+     *	@param 	string 	$timezone
+     *	@return string
      */
     public static function out($format = 'Y-m-d H:i:sP', $timestamp, $timezone = 'UTC')
     {
         if (empty($format))
             $format = 'Y-m-d H:i:sP';
+
         if (!Time::isTimezoneValid($timezone))
             return date($format, $timestamp) . " UTC";
 
@@ -50,7 +58,11 @@ class Time{
         return $dt->format($format);
     }
 
-
+    /**
+     *	Formats secounds into a nice user friendly format
+     *	@param 	int 	$secounds
+     *	@return string
+     */
     public static function formatSecoundsToText($secounds)
     {
         if ($secounds < 60)
@@ -97,7 +109,6 @@ class Time{
         {
             return floor($secounds/(60*60*24*7*4*12)) . " years";
         }
-
     }
 
 }
