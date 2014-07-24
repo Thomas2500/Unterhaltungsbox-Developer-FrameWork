@@ -126,7 +126,7 @@ class Utils
      *	@param 	string 	$codec
      *	@return string
      */
-    static public function createRandomStr($lenght, $codec = NULL)
+    public static function createRandomStr($lenght, $codec = NULL)
     {
         if (empty($codec))
             throw new Exception('Utils::StrToInt | No codec defined');
@@ -147,7 +147,7 @@ class Utils
      *  @param  int     $end
      *	@return string
      */
-	static public function substr($str, $start, $end = null)
+    public static function substr($str, $start, $end = null)
     {
         if ($end === null)
             $end = Utils::strlen($str);
@@ -160,7 +160,7 @@ class Utils
      *	@param 	string 	$str
      *	@return string
      */
-	static public function strlen($str)
+    public static function strlen($str)
     {
         return mb_strlen($str, 'UTF-8');
     }
@@ -170,7 +170,7 @@ class Utils
      *	@param 	string 	$str
      *	@return string
      */
-    static public function strtolower($str)
+    public static function strtolower($str)
     {
         return mb_strtolower($str, 'UTF-8');
     }
@@ -180,7 +180,7 @@ class Utils
      *	@param 	string 	$str
      *	@return string
      */
-    static public function strtoupper($str)
+    public static function strtoupper($str)
     {
         return mb_strtoupper($str, 'UTF-8');
     }
