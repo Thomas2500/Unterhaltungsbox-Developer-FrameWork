@@ -29,3 +29,10 @@ sftp-config.json
 #############
 # uDFrameWork
 #############
+
+userclass/*
+!userclass/README.md
+
+cache/*
+!cache/README.md
+!cache/.htaccess
