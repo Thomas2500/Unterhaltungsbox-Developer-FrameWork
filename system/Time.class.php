@@ -39,12 +39,12 @@ class Time{
 
     /**
      *	Converts an unix timestamp in an user friendly time depending on the given timezone
-     *	@param 	string 	$format
      *	@param 	int 	$timestamp
+     *	@param 	string 	$format
      *	@param 	string 	$timezone
      *	@return string
      */
-    public static function out($format = 'Y-m-d H:i:sP', $timestamp, $timezone = 'UTC')
+    public static function out($timestamp, $format = null, $timezone = 'UTC')
     {
         if (empty($format))
             $format = 'Y-m-d H:i:sP';
@@ -65,49 +65,26 @@ class Time{
      */
     public static function formatSecoundsToText($secounds)
     {
-        if ($secounds < 60)
+        if ($secounds <= 0)
+            return '0 seconds';
+
+        $timetable = array(
+            12 * 30 * 24 * 60 * 60  =>  'year',
+            30 * 24 * 60 * 60       =>  'month',
+            24 * 60 * 60            =>  'day',
+            60 * 60                 =>  'hour',
+            60                      =>  'minute',
+            1                       =>  'second'
+        );
+
+        foreach ($timetable as $secs => $string)
         {
-            return $secounds . " secounds";
-        }
-        else if (floor($secounds/60) == 1)
-        {
-            return floor($secounds/60) . " minute";
-        }
-        else if ($secounds/60 < 60)
-        {
-            return floor($secounds/60) . " minutes";
-        }
-        else if ($secounds/(60*60) < 24)
-        {
-            return floor($secounds/(60*60)) . " hours";
-        }
-        else if ($secounds/(60*60*24) < 7)
-        {
-            return floor($secounds/(60*60*24)) . " days";
-        }
-        else if (floor($secounds/(60*60*24*7)) == 1)
-        {
-            return floor($secounds/(60*60*24*7)) . " week";
-        }
-        else if ($secounds/(60*60*24*7) < 4)
-        {
-            return floor($secounds/(60*60*24*7)) . " weeks";
-        }
-        else if (floor($secounds/(60*60*24*7*4)) == 1)
-        {
-            return floor($secounds/(60*60*24*7*4)) . " month";
-        }
-        else if ($secounds/(60*60*24*7*4) < 12)
-        {
-            return floor($secounds/(60*60*24*7*4)) . " months";
-        }
-        else if (floor($secounds/(60*60*24*7*4*12)) == 1)
-        {
-            return floor($secounds/(60*60*24*7*4*12)) . " year";
-        }
-        else
-        {
-            return floor($secounds/(60*60*24*7*4*12)) . " years";
+            $tg = $secounds / $secs;
+            if ($tg >= 1)
+            {
+                $r = round($tg);
+                return $r . ' ' . $string . ($r > 1 ? 's' : '');
+            }
         }
     }
 
