@@ -305,7 +305,7 @@ class SQL
 	 */
 	public function database($change = null)
 	{
-		if (!empty($change))
+		if (empty($change))
 			return $this->database;
 		$this->pdo->exec("USE " . $change . ";");
 		$this->database = $change;
