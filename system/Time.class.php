@@ -28,9 +28,37 @@ class Time{
     {
         try
         {
-            new DateTimeZone($timezone);
+            new \DateTimeZone($timezone);
         }
-        catch(Exception $e)
+        catch(\Exception $e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *	Checks if a given time is valid
+     *	@param 	string 	$time
+     *	@param 	string 	$format
+     *	@return bool
+     */
+    public static function isTimeValid($time, $format = null)
+    {
+        // For format, use http://php.net/manual/en/datetime.createfromformat.php#refsect1-datetime.createfromformat-parameters
+        try
+        {
+            if (is_null($format))
+            {
+                $d = new \DateTime($time);
+                if ($d === false)
+                    return false;
+            }
+            else
+                if (\DateTime::createFromFormat($format, $time) === false)
+                    return false;
+        }
+        catch (\Exception $e)
         {
             return false;
         }
@@ -52,9 +80,9 @@ class Time{
         if (!Time::isTimezoneValid($timezone))
             return date($format, $timestamp) . " UTC";
 
-        $dt = new DateTime();
+        $dt = new \DateTime();
         $dt->setTimestamp($timestamp);
-        $dt->setTimezone(new DateTimeZone($timezone));
+        $dt->setTimezone(new \DateTimeZone($timezone));
         return $dt->format($format);
     }
 
@@ -86,6 +114,25 @@ class Time{
                 return $r . ' ' . $string . ($r > 1 ? 's' : '');
             }
         }
+    }
+
+    /**
+     *	Formats a string into an unix timestamp
+     *	@param 	string 	$time
+     *	@param 	string 	$format
+     *	@return int
+     */
+    public static function formatStringToTimestamp($time, $format = null)
+    {
+        if (is_null($format))
+            $date = new \DateTime($time);
+        else
+            $date = \DateTime::createFromFormat($format, $time);
+
+        if ($date === false)
+            throw new \Exception('Invalid time, format combination');
+
+        return $date->getTimestamp();
     }
 
 }
