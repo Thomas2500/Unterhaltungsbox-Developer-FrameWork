@@ -19,8 +19,10 @@ if (!defined('FW_PATH'))
 
 // Which config files should be automatically loaded?
 $load_config = array(
-    'database',               // Database connections
-    'memorycached'
+    'base',
+    'database',
+    'memorycached',
+    'token'
 );
 
 
