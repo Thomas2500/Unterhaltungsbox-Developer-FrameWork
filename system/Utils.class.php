@@ -121,6 +121,21 @@ class Utils
     }
 
     /**
+     *	Creates a random codec
+     *	@param 	string 	$chars
+     *	@return string
+     */
+    public static function createCodec($chars = null)
+    {
+        if (empty($chars))
+            $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        $chars = str_split($chars);
+        shuffle($chars);
+        return implode($chars);
+    }
+
+    /**
      *	Creates a random string based on a codec
      *	@param 	int 	$length
      *	@param 	string 	$codec
