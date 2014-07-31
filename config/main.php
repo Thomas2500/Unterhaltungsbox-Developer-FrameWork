@@ -22,7 +22,8 @@ $load_config = array(
     'base',
     'database',
     'memorycached',
-    'token'
+    'token',
+    'user'
 );
 
 

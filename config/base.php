@@ -24,3 +24,10 @@ if (!defined('FW_PATH'))
 //         If using cookies, the cookies will be available on uframework.dp.loc
 //         and all subdomains of udframework.dp.loc
 define("COOKIE_DOMAIN", "udframework.dp.loc");
+
+
+// Codecs for user class
+//     You can create your own codecs with using
+//     echo UDFrameWork\system\Utils::createCodec();
+define("USER_C_USERID",       "pb2tOmwXS4qj0GDVLCW5YUu3kcaP1BgyARnZfQ8JhNelEsTKxMrz6dFvo9HiI7");
+define("USER_C_SESSIONID",    "4T8RHGJPMOVqm2wU0yf5bhvlKikBrDaeCu9QFdgopYEX6nZAL1xzcNW3IS7tjs");
