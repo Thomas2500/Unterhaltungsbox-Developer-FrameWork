@@ -21,8 +21,8 @@ class Utils
 {
 
     /**
-     *	Converts a number into a string of a defined codec
-     *	@param 	float 	$number
+     *	Converts a positive number into a string of a defined codec
+     *	@param 	int 	$number
      *	@param 	string 	$codec
      *	@return string
      */
@@ -30,94 +30,56 @@ class Utils
     {
         if (empty($number))
             $number = 0;
-		if (empty($codec))
-            throw new Exception('Utils::IntToStr | No codec defined');
+        if (empty($codec))
+            throw new Exception('Utils::IntToStr - No codec defined');
 
-        if($number == 0)
+        if($number <= 0)
             return substr($codec, 0, 1);
 
-		$negative = 0;
-        if($number < 0)
-        {
-            $number = abs($number);
-            $negative=1;
-        }
+        $chars = str_split($codec);
+        $length = count($chars);
 
-        $output = "";
-        if(strstr($number, '.'))
-        {
-            $split = explode(".", $number);
-            $number = $split[0];
-            $output = $split[1];
-        }
-
-        preg_match_all('/./', $codec, $matches);
-        $matches = $matches[0];
-        if(count($matches) < 2)
-            return;
-
-        $length = count($matches);
         $places = 0;
         while($number >= pow($length, $places))
             $places++;
 
         $string = "";
-        $i = 0;
-
-        for($i=$stellen; $i>0; $i--)
+        for($i = $places; $i > 0; $i--)
         {
-            $index = floor($number/pow($length, $i-1));
-            $string .= $matches[$index];
-            $number = $number-pow($length, $i-1)*$index;
+            $index   = floor($number / pow($length, $i - 1));
+            $string .= $chars[$index];
+            $number  = $number - pow($length, $i - 1) * $index;
         }
-        return ($negative ? '.' : '') . $string . (strlen($output) ? '.' . Utils::IntToStr($output, $codec) : '');
+        return $string;
     }
 
     /**
-     *	Converts a string into a number of a defined codec
+     *	Converts a string into a positive number of a defined codec
      *	@param 	string 	$string
      *	@param 	string 	$codec
-     *	@return float
+     *	@return mixed
      */
     public static function StrToInt($string, $codec = NULL)
     {
         if (empty($string))
-            throw new Exception('Utils::StrToInt | No string defined');
+            throw new Exception('Utils::StrToInt - No string defined');
         if (empty($codec))
-            throw new Exception('Utils::StrToInt | No codec defined');
+            throw new Exception('Utils::StrToInt - No codec defined');
 
-        $negative = 0;
-        if(substr($string, 0, 1) == '.')
+        $codec = str_split($codec);
+
+        if(str_replace($codec, "", $string) != "")
+            return false;
+
+        $string_length = strlen($string);
+        $length = count($codec);
+        $number = 0;
+        for($i = 0; $i < $string_length; $i++)
         {
-            $string = substr($string, 1);
-            $negative = 1;
+            $number += array_search(substr($string, $i, 1), $codec) * (pow($length, ($string_length - ($i + 1))));
         }
 
-        $dec = "";
-        if(strstr($string, '.'))
-        {
-            $split = explode(".", $string);
-            $string = $split[0];
-            $dec = $split[1];
-        }
-
-        preg_match_all('/./', $codec, $array);
-        $array = $array[0];
-        if(count($array) < 2)
-            return 0;
-
-        if(!str_replace($array, "", $string) == "")
-            return 0;
-
-        $strlength = strlen($string);
-        $length = count($array);
-        $int = 0;
-        for($i=0; $i < $strlength; $i++)
-        {
-            $int += array_search(substr($string, $i, 1), $array) * (pow($length, ($strlength - ($i + 1))));
-        }
-
-        return ($int * ($negative ? -1 : 1)) . (strlen($dec) ? '.' . Utils::StrToInt($dec, $codec) : '');
+        return intval($number);
     }
 
     /**
