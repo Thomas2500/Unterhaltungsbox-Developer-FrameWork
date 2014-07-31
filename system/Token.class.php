@@ -211,4 +211,17 @@ class Token
         }
         return false;
     }
+
+    /**
+     *	Deletes old sessions in the database. Returns amount of affectec entries
+     *	@return bool
+     */
+    public function cleanup()
+    {
+        if ($this->storage !== 2)
+            return false;
+
+        global $SQL;
+        return $SQL->query("DELETE FROM `".$this->database."`.`".$this->table."` WHERE `creation` < (NOW() - INTERVAL 1 WEEK)");
+    }
 }
