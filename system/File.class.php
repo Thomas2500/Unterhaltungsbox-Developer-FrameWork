@@ -26,7 +26,7 @@ class File
      *	@param 	int 	$force
      *	@return	mixed
      */
-    public static function GetOnlineFile($file, $force = 0)
+    public static function getOnlineFile($file, $force = 0)
     {
         // Cache files from online sources
         if ($force === 0 && strstr(substr($file,0,10),"://") === false)
@@ -55,16 +55,29 @@ class File
         }
     }
 
+
     /**
-     *	Receifes an online file and caches it for about 5 minutes
+     *	Reads an local file
      *	@param 	string 	$file
-     *	@param 	int 	$force
      *	@return	mixed
      */
-    public static function Put($file, $content = "")
+    public static function get($file)
+    {
+        if (is_file($file))
+            return file_get_contents($file);
+        return false;
+    }
+
+    /**
+     *	Stores a file in the cache dir
+     *	@param 	string 	$file
+     *	@param 	string 	$content
+     *	@return	mixed
+     */
+    public static function put($file, $content = "")
     {
         if (strpos($haystack, $needle) !== 0)
-            throw new Exception('File::Put has only write access to cache directory');
+            throw new Exception('File::put has only write access to cache directory');
 
         if(is_file($file))
             @unlink($file);
@@ -73,14 +86,12 @@ class File
     }
 
     /**
-     *	Receifes an online file and caches it for about 5 minutes
+     *	Deletes a file
      *	@param 	string 	$file
-     *	@return	mixed
      */
-    public static function Get($file)
+    public static function delete($file)
     {
-        if (is_file($file))
-            return file_get_contents($file);
-        return false;
+        if (file_exists($file))
+            unlink($file);
     }
 }
