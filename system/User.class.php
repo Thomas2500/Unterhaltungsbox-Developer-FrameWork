@@ -214,4 +214,13 @@ class User
         return intval($this->userID);
     }
 
+    public function cleanup()
+    {
+        global $SQL;
+
+        // Delete user sessions that are older than 1 month and guest sessions
+        // that are older that 3 days (Unused sessions!)
+        return $SQL->query("DELETE FROM `".$this->database."`.`".$this->table."_session` WHERE (`lastuse` < (NOW() - INTERVAL 1 WEEK) AND `userID` = 0) OR `lastuse` < (NOW() - INTERVAL 1 MONTH)");
+    }
+
 }
