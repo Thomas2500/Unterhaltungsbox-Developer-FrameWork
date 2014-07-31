@@ -100,7 +100,7 @@ class Cookie
         if (empty($expire))
             $expire = time() + 3600 * 24 * 365;
 
-        Token::set($name, $_COOKIE[$name], $expire, $crossdomain, $secure, $httponly);
+        Cookie::set($name, $_COOKIE[$name], $expire, $crossdomain, $secure, $httponly);
         return true;
     }
 
