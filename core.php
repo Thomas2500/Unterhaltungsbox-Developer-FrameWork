@@ -17,7 +17,7 @@ $time = microtime(true);
 
 // Define current dir as firmware base path
 if (!defined('FW_PATH'))
-    define('FW_PATH', getcwd() . '/');
+    define('FW_PATH', realpath(dirname(__FILE__)) . '/');
 
 // Set UTF8 as default charset
 header('Content-Type: text/html; charset=utf-8');
