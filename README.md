@@ -11,4 +11,4 @@ Eine MySQL basierte Datenbank (MySQL, MariaDB) (php5-mysqlnd wird als Paket empf
 Memcached (php5-memcached, memcached)
 
 ## Bugs
-Auftretende Fehler bitte im UDFrameWork [Issues-Bereich](http://git.unterhaltungsbox.com/unterhaltungsbox/udfw/issues) auf der Git Projektseite melden.
+Auftretende Fehler bitte im UDFrameWork [Issues-Bereich](https://github.com/Thomas2500/Unterhaltungsbox-Developer-FrameWork/issues) auf der Git Projektseite melden.
